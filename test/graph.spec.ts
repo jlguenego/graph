@@ -4,10 +4,12 @@ import {Graph} from '../src';
 
 describe('Graph Unit Test', () => {
   it('test graph_creation', () => {
-    const nodeset = new Set<string>(['a', 'b', 'c']);
+    const nodeset = new Set<string>(['a', 'b', 'c', 'd']);
     const relation = new RelationOn((a: string, b: string) => a < b);
     const graph = new Graph<string>(nodeset, relation);
-    assert.deepStrictEqual(graph.size, 3);
+    assert.deepStrictEqual(graph.size, 4);
+    // a->b, a->c, a->d, b->c, b->d, c->d
+    assert.deepStrictEqual(graph.edges.size, 6);
   });
   it('test graph_creation2', () => {
     const nodeset = new Set<number>([1, 2, 3, 4]);
