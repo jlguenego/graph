@@ -130,4 +130,8 @@ export class Graph<T> {
   getBaseNodes(): Set<T> {
     return new Set([...this.nodeset].filter(a => this.getInDegree(a) === 0));
   }
+
+  getLeaves(): Set<T> {
+    return new Set([...this.nodeset].filter(a => this.getOutDegree(a) === 0));
+  }
 }

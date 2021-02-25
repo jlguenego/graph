@@ -7,6 +7,7 @@ describe('Graph Unit Test', () => {
   let relation: RelationOn<number>;
   let graph: Graph<number>;
   let dag: Graph<number>;
+  let dag08: Graph<number>;
 
   before(() => {
     nodeset = new Set<number>([1, 2, 3, 4]);
@@ -26,6 +27,20 @@ describe('Graph Unit Test', () => {
     dag = new Graph<number>(
       new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]),
       new RelationOn<number>((a, b) => a < b)
+    );
+    dag08 = new Graph<number>(
+      new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+      RelationOn.fromSet(
+        new Set([
+          new OrderedPair(1, 8),
+          new OrderedPair(1, 5),
+          new OrderedPair(3, 6),
+          new OrderedPair(3, 7),
+          new OrderedPair(5, 8),
+          new OrderedPair(5, 9),
+          new OrderedPair(6, 9),
+        ])
+      )
     );
   });
 
@@ -73,8 +88,14 @@ describe('Graph Unit Test', () => {
   });
   it('test isDAG', () => {
     assert.deepStrictEqual(dag.isDAG(), true);
+    assert.deepStrictEqual(dag08.isDAG(), true);
   });
   it('test isBaseNode', () => {
     assert.deepStrictEqual(dag.getBaseNodes(), new Set([1]));
+    assert.deepStrictEqual(dag08.getBaseNodes(), new Set([1, 2, 3, 4]));
+  });
+  it('test isLeaf', () => {
+    assert.deepStrictEqual(dag.getLeaves(), new Set([9]));
+    assert.deepStrictEqual(dag08.getLeaves(), new Set([2, 4, 7, 8, 9]));
   });
 });
