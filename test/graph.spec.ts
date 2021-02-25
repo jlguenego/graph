@@ -8,6 +8,7 @@ describe('Graph Unit Test', () => {
   let graph: Graph<number>;
   let dag: Graph<number>;
   let dag08: Graph<number>;
+  let tree012: Graph<number>;
 
   before(() => {
     nodeset = new Set<number>([1, 2, 3, 4]);
@@ -38,6 +39,22 @@ describe('Graph Unit Test', () => {
           new OrderedPair(3, 7),
           new OrderedPair(5, 8),
           new OrderedPair(5, 9),
+          new OrderedPair(6, 9),
+        ])
+      )
+    );
+
+    tree012 = new Graph<number>(
+      new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+      RelationOn.fromSet(
+        new Set([
+          new OrderedPair(1, 2),
+          new OrderedPair(1, 5),
+          new OrderedPair(2, 3),
+          new OrderedPair(2, 4),
+          new OrderedPair(5, 6),
+          new OrderedPair(6, 7),
+          new OrderedPair(6, 8),
           new OrderedPair(6, 9),
         ])
       )
@@ -114,5 +131,8 @@ describe('Graph Unit Test', () => {
     assert.deepStrictEqual(dag08.getLevel(2), 0);
     assert.deepStrictEqual(dag08.getLevel(3), 1);
     assert.deepStrictEqual(dag08.getLevel(5), 1);
+  });
+  it('test isTree', () => {
+    assert.deepStrictEqual(tree012.isTree(), true);
   });
 });

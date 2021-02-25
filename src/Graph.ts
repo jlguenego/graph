@@ -168,4 +168,22 @@ export class Graph<T> {
     }
     return length - 1;
   }
+
+  isTree(): boolean {
+    let countRoot = 0;
+    for (const a of this.nodeset) {
+      const inDegree = this.getInDegree(a);
+      if (inDegree > 1) {
+        return false;
+      }
+      if (inDegree === 0) {
+        countRoot++;
+      }
+    }
+    if (countRoot !== 1) {
+      return false;
+    }
+    // for finite graph, it is enough to prove the accessibility of the node
+    return true;
+  }
 }
