@@ -12,24 +12,30 @@ export class Graph<T> {
     this.edges = relation.getSet(nodeset);
   }
 
-  getPredecessors(a: T): Set<T> {
-    return new Set(
-      [...this.edges].filter(edge => edge.second === a).map(edge => edge.first)
-    );
+  *getPredecessors(a: T): IterableIterator<T> {
+    for (const edge of this.edges) {
+      if (edge.second !== a) {
+        continue;
+      }
+      yield edge.first;
+    }
   }
 
-  getSuccessors(a: T): Set<T> {
-    return new Set(
-      [...this.edges].filter(edge => edge.first === a).map(edge => edge.second)
-    );
+  *getSuccessors(a: T): IterableIterator<T> {
+    for (const edge of this.edges) {
+      if (edge.first !== a) {
+        continue;
+      }
+      yield edge.second;
+    }
   }
 
   getInDegree(a: T): number {
-    return this.getPredecessors(a).size;
+    return new Set(this.getPredecessors(a)).size;
   }
 
   getOutDegree(a: T): number {
-    return this.getSuccessors(a).size;
+    return new Set(this.getSuccessors(a)).size;
   }
 
   getBijectionWith<U>(graph: Graph<U>): Bijection<T, U> | undefined {
@@ -57,4 +63,11 @@ export class Graph<T> {
   equals<U>(graph: Graph<U>): boolean {
     return this.getBijectionWith(graph) !== undefined;
   }
+
+  // getPathBetween(a: T, b: T): T[] {
+  //   if (a === b) {
+  //     return [a];
+  //   }
+
+  // }
 }

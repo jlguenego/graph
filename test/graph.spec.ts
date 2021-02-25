@@ -29,10 +29,10 @@ describe('Graph Unit Test', () => {
   });
 
   it('test predecessors', () => {
-    assert.deepStrictEqual(graph.getPredecessors(1), new Set([1, 4]));
+    assert.deepStrictEqual(new Set(graph.getPredecessors(1)), new Set([1, 4]));
   });
   it('test successors', () => {
-    assert.deepStrictEqual(graph.getSuccessors(1), new Set([1, 2]));
+    assert.deepStrictEqual(new Set(graph.getSuccessors(1)), new Set([1, 2]));
   });
   it('test equals', () => {
     const n = new Set<string>(['11', 'a', '3', '4']);
