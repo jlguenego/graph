@@ -3,17 +3,13 @@ import assert from 'assert';
 import {Graph} from '../src';
 
 describe('Graph Unit Test', () => {
-  it('test graph_creation', () => {
-    const nodeset = new Set<string>(['a', 'b', 'c', 'd']);
-    const relation = new RelationOn((a: string, b: string) => a < b);
-    const graph = new Graph<string>(nodeset, relation);
-    assert.deepStrictEqual(graph.size, 4);
-    // a->b, a->c, a->d, b->c, b->d, c->d
-    assert.deepStrictEqual(graph.edges.size, 6);
-  });
-  it('test graph_creation2', () => {
-    const nodeset = new Set<number>([1, 2, 3, 4]);
-    const relation = RelationOn.fromSet(
+  let nodeset: Set<number>;
+  let relation: RelationOn<number>;
+  let graph: Graph<number>;
+
+  before(() => {
+    nodeset = new Set<number>([1, 2, 3, 4]);
+    relation = RelationOn.fromSet(
       new Set([
         new OrderedPair(1, 1),
         new OrderedPair(1, 2),
@@ -24,8 +20,34 @@ describe('Graph Unit Test', () => {
         new OrderedPair(4, 3),
       ])
     );
-    const graph = new Graph<number>(nodeset, relation);
+    graph = new Graph<number>(nodeset, relation);
+  });
+
+  it('test graph_creation', () => {
     assert.deepStrictEqual(graph.size, 4);
     assert.deepStrictEqual(graph.edges.size, 7);
+  });
+
+  it('test predecessors', () => {
+    assert.deepStrictEqual(graph.getPredecessors(1), new Set([1, 4]));
+  });
+  it('test successors', () => {
+    assert.deepStrictEqual(graph.getSuccessors(1), new Set([1, 2]));
+  });
+  it('test equals', () => {
+    const n = new Set<string>(['11', 'a', '3', '4']);
+    const r = RelationOn.fromSet(
+      new Set([
+        new OrderedPair('11', 'a'),
+        new OrderedPair('a', '3'),
+        new OrderedPair('11', '11'),
+        new OrderedPair('3', '4'),
+        new OrderedPair('a', '4'),
+        new OrderedPair('4', '3'),
+        new OrderedPair('4', '11'),
+      ])
+    );
+    const g = new Graph<string>(n, r);
+    assert.deepStrictEqual(graph.equals(g), true);
   });
 });
