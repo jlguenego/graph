@@ -50,4 +50,8 @@ describe('Graph Unit Test', () => {
     const g = new Graph<string>(n, r);
     assert.deepStrictEqual(graph.equals(g), true);
   });
+  it('test path_search', () => {
+    const path = graph.getPathBetween(2, 1);
+    assert.deepStrictEqual(path, [2, 4, 1]);
+  });
 });

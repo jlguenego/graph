@@ -64,10 +64,42 @@ export class Graph<T> {
     return this.getBijectionWith(graph) !== undefined;
   }
 
-  // getPathBetween(a: T, b: T): T[] {
-  //   if (a === b) {
-  //     return [a];
-  //   }
+  getPathBetween(a: T, b: T): T[] | undefined {
+    if (a === b) {
+      return [a];
+    }
+    const set = new Set<T>([a]);
+    let previousSize = 0;
+    let size = 1;
+    let level = 1;
+    while (previousSize < size) {
+      const paths = this.getSuccessorPaths(a, level);
+      for (const path of paths) {
+        const ai = path[path.length - 1];
+        if (ai === b) {
+          return path;
+        }
+        set.add(ai);
+      }
+      previousSize = size;
+      size = set.size;
+      level++;
+    }
+    return undefined;
+  }
 
-  // }
+  getSuccessorPaths(a: T, level: number): Set<T[]> {
+    if (level === 0) {
+      return new Set([[a]]);
+    }
+    const result = new Set<T[]>();
+    for (const path of this.getSuccessorPaths(a, level - 1)) {
+      const ai = path[path.length - 1];
+      for (const aii of this.getSuccessors(ai)) {
+        const pathi = [...path, aii];
+        result.add(pathi);
+      }
+    }
+    return result;
+  }
 }
