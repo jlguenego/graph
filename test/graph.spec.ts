@@ -6,6 +6,7 @@ describe('Graph Unit Test', () => {
   let nodeset: Set<number>;
   let relation: RelationOn<number>;
   let graph: Graph<number>;
+  let dag: Graph<number>;
 
   before(() => {
     nodeset = new Set<number>([1, 2, 3, 4]);
@@ -21,6 +22,11 @@ describe('Graph Unit Test', () => {
       ])
     );
     graph = new Graph<number>(nodeset, relation);
+
+    dag = new Graph<number>(
+      new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+      new RelationOn<number>((a, b) => a < b)
+    );
   });
 
   it('test graph_creation', () => {
@@ -66,10 +72,9 @@ describe('Graph Unit Test', () => {
     assert.deepStrictEqual(graph.isDAG(), false);
   });
   it('test isDAG', () => {
-    const dag = new Graph<number>(
-      new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]),
-      new RelationOn<number>((a, b) => a < b)
-    );
     assert.deepStrictEqual(dag.isDAG(), true);
+  });
+  it('test isBaseNode', () => {
+    assert.deepStrictEqual(dag.getBaseNodes(), new Set([1]));
   });
 });

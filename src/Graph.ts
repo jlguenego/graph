@@ -126,4 +126,8 @@ export class Graph<T> {
     }
     return true;
   }
+
+  getBaseNodes(): Set<T> {
+    return new Set([...this.nodeset].filter(a => this.getInDegree(a) === 0));
+  }
 }
