@@ -1,4 +1,4 @@
-import {OrderedPair, RelationOn} from '@jlguenego/set';
+import {getDistinctCouples, OrderedPair, RelationOn} from '@jlguenego/set';
 import {Bijection} from './Bijection';
 
 export class Graph<T> {
@@ -98,5 +98,32 @@ export class Graph<T> {
       }
     }
     return result;
+  }
+
+  hasCycle(): boolean {
+    for (const a of this.nodeset) {
+      if (this.getPathBetween(a, a)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isStronglyConnected(): boolean {
+    for (const {first: a, second: b} of getDistinctCouples(...this.nodeset)) {
+      if (!this.getPathBetween(a, b)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  isDAG(): boolean {
+    for (const a of this.nodeset) {
+      if (this.getPathBetween(a, a)) {
+        return false;
+      }
+    }
+    return true;
   }
 }

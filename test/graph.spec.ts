@@ -56,4 +56,20 @@ describe('Graph Unit Test', () => {
     assert.deepStrictEqual(graph.getPathBetween(4, 4), [4, 3, 4]);
     assert.deepStrictEqual(graph.getPathBetween(2, 2), [2, 4, 1, 2]);
   });
+  it('test cycle', () => {
+    assert.deepStrictEqual(graph.hasCycle(), true);
+  });
+  it('test isStronglyConnected', () => {
+    assert.deepStrictEqual(graph.isStronglyConnected(), true);
+  });
+  it('test isDAG_not', () => {
+    assert.deepStrictEqual(graph.isDAG(), false);
+  });
+  it('test isDAG', () => {
+    const dag = new Graph<number>(
+      new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+      new RelationOn<number>((a, b) => a < b)
+    );
+    assert.deepStrictEqual(dag.isDAG(), true);
+  });
 });
