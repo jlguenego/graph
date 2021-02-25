@@ -134,4 +134,8 @@ export class Graph<T> {
   getLeaves(): Set<T> {
     return new Set([...this.nodeset].filter(a => this.getOutDegree(a) === 0));
   }
+
+  isAccessible(a: T, b: T): boolean {
+    return this.getPathBetween(a, b) !== undefined;
+  }
 }

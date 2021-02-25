@@ -98,4 +98,8 @@ describe('Graph Unit Test', () => {
     assert.deepStrictEqual(dag.getLeaves(), new Set([9]));
     assert.deepStrictEqual(dag08.getLeaves(), new Set([2, 4, 7, 8, 9]));
   });
+  it('test isAccessible', () => {
+    assert.deepStrictEqual(dag.isAccessible(1, 3), true);
+    assert.deepStrictEqual(dag.isAccessible(3, 1), false);
+  });
 });
