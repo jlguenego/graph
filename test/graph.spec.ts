@@ -51,7 +51,9 @@ describe('Graph Unit Test', () => {
     assert.deepStrictEqual(graph.equals(g), true);
   });
   it('test path_search', () => {
-    const path = graph.getPathBetween(2, 1);
-    assert.deepStrictEqual(path, [2, 4, 1]);
+    assert.deepStrictEqual(graph.getPathBetween(2, 1), [2, 4, 1]);
+    assert.deepStrictEqual(graph.getPathBetween(1, 1), [1, 1]);
+    assert.deepStrictEqual(graph.getPathBetween(4, 4), [4, 3, 4]);
+    assert.deepStrictEqual(graph.getPathBetween(2, 2), [2, 4, 1, 2]);
   });
 });

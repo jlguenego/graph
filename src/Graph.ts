@@ -65,9 +65,6 @@ export class Graph<T> {
   }
 
   getPathBetween(a: T, b: T): T[] | undefined {
-    if (a === b) {
-      return [a];
-    }
     const set = new Set<T>([a]);
     let previousSize = 0;
     let size = 1;
