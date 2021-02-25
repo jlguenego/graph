@@ -24,5 +24,6 @@ describe('Graph Unit Test', () => {
     );
     const graph = new Graph<number>(nodeset, relation);
     assert.deepStrictEqual(graph.size, 4);
+    assert.deepStrictEqual(graph.edges.size, 7);
   });
 });
