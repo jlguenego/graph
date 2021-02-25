@@ -1,0 +1,11 @@
+.nyc_output
+.vscode
+coverage
+docs
+node_modules
+typedoc
+.eslintignore
+.eslintrc.json
+.prettierrc.js
+CHANGELOG.md
+tsconfig.json
