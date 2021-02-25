@@ -138,4 +138,19 @@ export class Graph<T> {
   isAccessible(a: T, b: T): boolean {
     return this.getPathBetween(a, b) !== undefined;
   }
+
+  getDepth(a: T): number {
+    const baseNodes = this.getBaseNodes();
+    if (baseNodes.has(a)) {
+      return 0;
+    }
+    let depth = +Infinity;
+    for (const b of baseNodes) {
+      const path = this.getPathBetween(b, a);
+      if (path !== undefined && path.length < depth) {
+        depth = path.length;
+      }
+    }
+    return depth;
+  }
 }
