@@ -40,23 +40,18 @@ export class Graph<T> {
       return undefined;
     }
     // brut force. get all the possible bijections between the 2 nodesets.
-    const bijections: Bijection<T, U>[] = Bijection.getAll(
-      this.nodeset,
-      graph.nodeset
-    );
-
-    return bijections.find(bi => {
+    for (const bi of Bijection.getAll(this.nodeset, graph.nodeset)) {
       for (const a of this.nodeset) {
         for (const b of this.nodeset) {
           const r1 = this.edges.has(new OrderedPair(a, b));
           const r2 = graph.edges.has(new OrderedPair(bi.get(a), bi.get(b)));
           if ((r1 && !r2) || (r2 && !r1)) {
-            return false;
+            return bi;
           }
         }
       }
-      return true;
-    });
+    }
+    return undefined;
   }
 
   equals<U>(graph: Graph<U>): boolean {
