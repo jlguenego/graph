@@ -1,7 +1,7 @@
 import {Sets} from '@jlguenego/set';
 
 export class Bijection<T, U> {
-  static getAll = function* <T, U>(
+  static *getAll<T, U>(
     s1: Set<T>,
     s2: Set<U>
   ): IterableIterator<Bijection<T, U>> {
@@ -18,7 +18,7 @@ export class Bijection<T, U> {
         yield bi;
       }
     }
-  };
+  }
   constructor(public map: Map<T, U>) {}
 
   get(a: T): U {
