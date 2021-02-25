@@ -103,9 +103,16 @@ describe('Graph Unit Test', () => {
     assert.deepStrictEqual(dag.isAccessible(3, 1), false);
   });
   it('test getDepth', () => {
-    assert.deepStrictEqual(dag08.getDepth(9), 3);
+    assert.deepStrictEqual(dag08.getDepth(9), 2);
     assert.deepStrictEqual(dag08.getDepth(1), 0);
     assert.deepStrictEqual(dag08.getDepth(2), 0);
-    assert.deepStrictEqual(dag08.getDepth(5), 2);
+    assert.deepStrictEqual(dag08.getDepth(5), 1);
+  });
+  it('test getLevel', () => {
+    assert.deepStrictEqual(dag08.getLevel(9), 0);
+    assert.deepStrictEqual(dag08.getLevel(1), 1);
+    assert.deepStrictEqual(dag08.getLevel(2), 0);
+    assert.deepStrictEqual(dag08.getLevel(3), 1);
+    assert.deepStrictEqual(dag08.getLevel(5), 1);
   });
 });

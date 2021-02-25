@@ -144,13 +144,28 @@ export class Graph<T> {
     if (baseNodes.has(a)) {
       return 0;
     }
-    let depth = +Infinity;
+    let length = +Infinity;
     for (const b of baseNodes) {
       const path = this.getPathBetween(b, a);
-      if (path !== undefined && path.length < depth) {
-        depth = path.length;
+      if (path !== undefined && path.length < length) {
+        length = path.length;
       }
     }
-    return depth;
+    return length - 1;
+  }
+
+  getLevel(a: T): number {
+    const leaves = this.getLeaves();
+    if (leaves.has(a)) {
+      return 0;
+    }
+    let length = +Infinity;
+    for (const leaf of leaves) {
+      const path = this.getPathBetween(a, leaf);
+      if (path !== undefined && path.length < length) {
+        length = path.length;
+      }
+    }
+    return length - 1;
   }
 }
