@@ -159,14 +159,14 @@ export class Graph<T> {
     if (leaves.has(a)) {
       return 0;
     }
-    let length = +Infinity;
-    for (const leaf of leaves) {
-      const path = this.getPathBetween(a, leaf);
-      if (path !== undefined && path.length < length) {
-        length = path.length;
+    let result = 0;
+    for (const c of this.getSuccessors(a)) {
+      const level = this.getLevel(c);
+      if (level > result) {
+        result = level;
       }
     }
-    return length - 1;
+    return result + 1;
   }
 
   isTree(): boolean {

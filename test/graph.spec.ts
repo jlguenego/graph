@@ -127,9 +127,9 @@ describe('Graph Unit Test', () => {
   });
   it('test getLevel', () => {
     assert.deepStrictEqual(dag08.getLevel(9), 0);
-    assert.deepStrictEqual(dag08.getLevel(1), 1);
+    assert.deepStrictEqual(dag08.getLevel(1), 2);
     assert.deepStrictEqual(dag08.getLevel(2), 0);
-    assert.deepStrictEqual(dag08.getLevel(3), 1);
+    assert.deepStrictEqual(dag08.getLevel(3), 2);
     assert.deepStrictEqual(dag08.getLevel(5), 1);
   });
   it('test isTree', () => {
